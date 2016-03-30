@@ -64,9 +64,17 @@ def callback(tw):
 @app.route('/count-likes/')
 @token_required()
 def count_likes(tw):
-    likes = tw.get_favorites(count=200)
-    users = {like['user']['id_str']: like['user'] for like in likes}
-    counter = Counter([like['user']['id_str'] for like in likes])
+    users = {}
+    counter = Counter()
+    max_id = None
+    for i in range(5):
+        likes = tw.get_favorites(count=200, max_id=max_id)
+        if len(likes) < 2:
+            break
+        max_id = likes[-1]['id']
+        users.update({like['user']['id_str']: like['user'] for like in likes})
+        counter.update([like['user']['id_str'] for like in likes])
+
     top_users = [(count, users[uid]) for uid, count in counter.most_common(15)]
     return render_template('count-likes.html', top_users=top_users)
 
