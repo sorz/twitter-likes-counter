@@ -1,4 +1,4 @@
-# Copy this file to `config.py`
+# Copy this file to `configs.py`
 DEBUG = False
 SECRET_KEY='LONG RANDOM STRING'
 
