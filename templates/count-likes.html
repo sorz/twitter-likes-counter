@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Twitter Likes Count</title>
+    <style>
+      body { font-size: 1.2em; color: #555; margin: 1em; }
+      .name { color: #333; }
+      .name a { text-decoration: none; color: gray; font-size: 0.9em; margin: 0 0.2em; }
+      .count { font-size: 0.6em; vertical-align: text-top; color: #c30; }
+      ol li { margin: 0.5em 0; }
+    </style>
+  </head>
+  <body>
+    Most my likes sent to:
+    <ol>
+      {% for count, user in top_users %}
+      <li>
+        <span class="name">{{ user.name }}
+          <a class="screen-name" href="https://twitter.com/{{ user.screen_name }}">@{{ user.screen_name }}</a>
+        </span>
+        <span class="count">x{{ count }}</span>
+      </li>
+      {% endfor %}
+    </ol>
+  </body>
+</html>
+
